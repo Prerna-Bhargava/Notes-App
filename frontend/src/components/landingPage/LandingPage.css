@@ -1,0 +1,60 @@
+.main{
+    min-height: 93vh;
+    display: flex;
+    align-items: center;
+    background-image: url('../../background1.jpg');
+    background-position: center;
+    background-size: cover;
+}
+
+/* Text styling */
+
+.title{
+    font-size: 80px;
+    font-weight: 400;
+}
+.subtitle{
+    font-size: 25px;
+    padding-top: 10px;
+}
+.intro-text{
+    margin-top: 60px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Buttons css */
+.buttons{
+    margin: 60px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.buttons Button{
+    width: 200px;
+    height: 50px;
+}
+
+/* Media queries for responsiveness of title and buttons */
+
+@media only screen and (min-width: 1200px){
+   
+  .buttons{
+    padding: 0 200px;
+
+  }
+  .title{
+    padding: 0 250px;
+  }
+
+  
+}
+
+@media only screen and (max-width: 1200px){
+    .title{
+        font-size: 48px;
+    }
+    .buttons Button{
+        width: 150px;
+        height: 50px;
+    }
+}
