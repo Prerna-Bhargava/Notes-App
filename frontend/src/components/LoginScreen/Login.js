@@ -25,6 +25,7 @@ const Login = () => {
                 }
             }
             setLoading(true)
+            // http://localhost:9000
             const { data } = await axios.post('/api/users/login', { email, password }, config)
             localStorage.setItem('userInfo', JSON.stringify(data))
             history("/mynotes");

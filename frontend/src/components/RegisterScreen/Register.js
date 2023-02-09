@@ -40,7 +40,7 @@ const Register = () => {
         }
         setLoading(true)
         console.log(pic)
-        const { data } = await axios.post("api/users", {
+        const { data } = await axios.post("/api/users", {
           name, pic, email, password
         }, config)
         console.log("printing", data)
