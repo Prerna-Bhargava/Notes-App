@@ -19,7 +19,6 @@ const Mynotes = () => {
   const deleteNote = async (id) => {
     if (window.confirm("Are you sure?")) {
       try {
-        console.log(id)
         const token = JSON.parse(localStorage.getItem("userInfo")).token
         const config = {
           headers: {
@@ -30,7 +29,6 @@ const Mynotes = () => {
         setNoteDeletion(true)
 
       } catch (err) {
-        console.log(err)
         setMessage(NOTES_DELETE_FAIL)
       }
     }

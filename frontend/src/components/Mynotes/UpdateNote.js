@@ -80,7 +80,6 @@ function UpdateNote({ }) {
                 history("/mynotes");
 
             } catch (err) {
-                console.log(err)
                 setMessage(NOTE_NOT_CREATED)
             }
         }

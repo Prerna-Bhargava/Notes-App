@@ -7,7 +7,6 @@ import Spinner from '../Loading'
 import axios from 'axios';
 import { ERROR_OCCURED, PASSWORD_VERIFICATION_FAILED } from '../constants/noteConstants';
 
-
 const Register = () => {
 
   const history = useNavigate();
@@ -40,24 +39,18 @@ const Register = () => {
           }
         }
         setLoading(true)
-        console.log(pic)
         const { data } = await axios.post("/api/users", {
           name, pic, email, password
         }, config)
-        console.log("printing", data)
         localStorage.setItem('userInfo', JSON.stringify(data))
-
         setLoading(false)
         history("/mynotes");
 
-
       } catch (err) {
         setError(err.response.data.message)
-        console.log(err.response.data.message)
         setLoading(false)
       }
     }
-
   };
 
   const postDetails = (picture) => {
@@ -77,7 +70,6 @@ const Register = () => {
         method: "post",
         body: data,
       }).then((res) => res.json()).then((data) => {
-        console.log(data)
         setPic(data.url.toString())
         setPicUpload(false)
       })
@@ -85,14 +77,9 @@ const Register = () => {
           return setPicMessage(ERROR_OCCURED)
 
         });
-
       const reader = new FileReader();
       reader.readAsDataURL(picture);
-
-
     }
-
-
     else {
       return setPicMessage('Please Select an Image2')
     }
@@ -102,7 +89,6 @@ const Register = () => {
     <MainScreen title='REGISTER'>
 
       <div className='loginContainer'>
-
         {loading && <Spinner />}
         {error && <AlertMessage variant='danger' msg={error}></AlertMessage>}
         {message && <AlertMessage variant='danger' msg={message}></AlertMessage>}

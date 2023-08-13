@@ -34,7 +34,6 @@ function CreateNote() {
 
                 const token = JSON.parse(localStorage.getItem("userInfo")).token
                 setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
-                console.log(token)
                 const config = {
                     headers: {
                         "Content-type": "application/json",
@@ -49,7 +48,6 @@ function CreateNote() {
                 history("/mynotes");
 
             } catch (err) {
-                console.log(err)
                 setMessage(NOTE_NOT_CREATED)
             }
         }

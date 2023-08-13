@@ -18,7 +18,6 @@ export const LandingPage = () => {
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
         if (userInfo) {
-            console.log(userInfo.token)
             isUserAuthenticated(userInfo);
         }
     }, [])

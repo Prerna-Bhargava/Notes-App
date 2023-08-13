@@ -10,16 +10,11 @@ router.route('/').get(protect, getNotes)
 // Create note
 router.route('/create').post(protect, createNotes)
 
-// Single note to get/delete/update
 router.route('/:id').get(protect,getNoteById);
 
 router.route('/:id').put(protect,updateNote);
 
 router.route('/:id').delete(protect,deleteNote);
-
-
-
-
 
 
 module.exports = router
