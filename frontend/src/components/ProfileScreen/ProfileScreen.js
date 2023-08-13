@@ -37,8 +37,8 @@ const ProfileScreen = () => {
             const data = new FormData();
             data.append('file', picture)
             data.append('upload_preset', 'NotesApp')
-            data.append('cloud_name', process.env.CLOUD_NAME)
-            fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/image/upload`, {
+            data.append('cloud_name', 'dlqtgcsk9')
+            fetch('https://api.cloudinary.com/v1_1/dlqtgcsk9/image/upload', {
                 method: "post",
                 body: data,
             }).then((res) => res.json()).then((data) => {
