@@ -2,15 +2,24 @@ import { React, useEffect } from 'react'
 import './LandingPage.css'
 import { Button, Container, Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 export const LandingPage = () => {
 
     const history = useNavigate();
-    useEffect(() => {
-        const userInfo = localStorage.getItem("userInfo");
-        // If localstorage has something don't show login page. Directly show notes page
-        if (userInfo) {
+    const isUserAuthenticated = async (userInfo) => {
+        try {
+            await axios.get(`/api/users/${userInfo.token}`)
             history("/mynotes");
+
+        } catch (e) {
+        }
+    }
+    useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        if (userInfo) {
+            console.log(userInfo.token)
+            isUserAuthenticated(userInfo);
         }
     }, [])
 

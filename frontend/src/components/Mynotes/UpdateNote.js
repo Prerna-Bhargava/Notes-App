@@ -5,6 +5,7 @@ import { Button, Card, Form } from "react-bootstrap";
 import ErrorMessage from "../Alerts/AlertMessage";
 import ReactMarkdown from "react-markdown";
 import { useNavigate, useParams } from 'react-router-dom'
+import { FILL_DETAILS, NOTES_DELETE_SUCCESS, NOTE_NOT_CREATED } from "../constants/noteConstants";
 
 function UpdateNote({ }) {
     const history = useNavigate();
@@ -47,7 +48,7 @@ function UpdateNote({ }) {
             history("/mynotes");
 
         } catch (err) {
-            setMessage('Deletion successful')
+            setMessage(NOTES_DELETE_SUCCESS)
         }
     };
 
@@ -60,7 +61,7 @@ function UpdateNote({ }) {
     const updateHandler = async (e) => {
         e.preventDefault();
         if (!title || !content || !category) {
-            setMessage("Please fill all details.")
+            setMessage(FILL_DETAILS)
         }
         else {
             try {
@@ -80,7 +81,7 @@ function UpdateNote({ }) {
 
             } catch (err) {
                 console.log(err)
-                setMessage('Record Cannot be created')
+                setMessage(NOTE_NOT_CREATED)
             }
         }
     };

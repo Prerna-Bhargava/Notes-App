@@ -10,6 +10,7 @@ const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
 dotenv.config()
 
 connectDB();
+
 app.use(express.json())
 
 app.use('/api/users', userRoutes)

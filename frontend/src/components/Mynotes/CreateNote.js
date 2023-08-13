@@ -5,6 +5,7 @@ import ErrorMessage from "../Alerts/AlertMessage";
 import ReactMarkdown from "react-markdown";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom'
+import { FILL_DETAILS, MARKDOWN_ACCEPTED, NOTE_NOT_CREATED } from "../constants/noteConstants";
 
 
 function CreateNote() {
@@ -26,7 +27,7 @@ function CreateNote() {
     const submitHandler = async (e) => {
         e.preventDefault();
         if (!title || !content || !category) {
-            setMessage("Please fill all details.")
+            setMessage(FILL_DETAILS)
         }
         else {
             try {
@@ -49,7 +50,7 @@ function CreateNote() {
 
             } catch (err) {
                 console.log(err)
-                setMessage('Record Cannot be created')
+                setMessage(NOTE_NOT_CREATED)
             }
         }
 
@@ -89,7 +90,7 @@ function CreateNote() {
                                 <Form.Control
                                     as="textarea"
                                     value={content}
-                                    placeholder="Enter the content (React Markdown is accepted)"
+                                    placeholder={MARKDOWN_ACCEPTED}
                                     rows={4}
                                     onChange={(e) => setContent(e.target.value)}
                                 />

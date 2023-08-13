@@ -43,8 +43,6 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new Error('Error Occured! ')
     }
 
-
-
 });
 
 const authUser = asyncHandler(async (req, res) => {
@@ -61,7 +59,6 @@ const authUser = asyncHandler(async (req, res) => {
             isAdmin: user.isAdmin,
             pic: user.pic,
             token: generateToken(user._id)
-
         });
 
     } else {
@@ -69,9 +66,8 @@ const authUser = asyncHandler(async (req, res) => {
         throw new Error('Invalid Email or Password! ')
     }
 
-
-
 });
+
 const updateUserProfile = asyncHandler(async (req, res) => {
 
     const user = await User.findById(req.user._id);
@@ -96,11 +92,24 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         })
 
     }
-    else{
+    else {
         res.json(404);
         throw new Error("User not Found");
     }
 
 })
 
-module.exports = { registerUser, authUser, updateUserProfile }
+const isUserAuthenticated = asyncHandler(async (req, res) => {
+    const { token } = req.params
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const data = await User.findById(decoded.id)
+        res.status(200).json("Success")
+
+    } catch (e) {
+        res.status(401)
+        throw new Error("Authentication failed, Login again");
+
+    }
+})
+module.exports = { registerUser, authUser, updateUserProfile, isUserAuthenticated }

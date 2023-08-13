@@ -6,6 +6,7 @@ import ReactMarkdown from "react-markdown";
 import ErrorMessage from "../Alerts/AlertMessage";
 import axios from 'axios'
 import Spinner from '../Loading'
+import { NOTES_DELETE_FAIL } from '../constants/noteConstants';
 
 const Mynotes = () => {
   const history = useNavigate();
@@ -30,7 +31,7 @@ const Mynotes = () => {
 
       } catch (err) {
         console.log(err)
-        setMessage('Deletion UnSuccessful')
+        setMessage(NOTES_DELETE_FAIL)
       }
     }
   };
@@ -46,21 +47,24 @@ const Mynotes = () => {
     setloading(true)
     const { data } = await axios.get('/api/notes/', config);
     setloading(false)
-
     setmyNotes(data)
 
   }
-  useEffect(() => {
-
-    if (JSON.parse(localStorage.getItem("userInfo"))) {
+  const isUserAuthenticated = async (userInfo) => {
+    try {
+      await axios.get(`/api/users/${userInfo.token}`)
       fetchNotes()
+    } catch (e) {
+      history("/");
     }
-    else {
-      history('/')
+  }
+  useEffect(() => {
+    const userdata = JSON.parse(localStorage.getItem("userInfo"))
+    if (userdata) {
+      isUserAuthenticated(userdata)
     }
-
-
   }, [noteDeleted])
+
 
   return (
     <>

@@ -5,6 +5,8 @@ import MainScreen from '../MainScreen';
 import Spinner from '../Loading'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './ProfileScreen.css'
+import { ERROR_OCCURED, PASSWORD_VERIFICATION_FAILED, PROFILE_UPDATED } from '../constants/noteConstants';
 
 
 const ProfileScreen = () => {
@@ -35,8 +37,8 @@ const ProfileScreen = () => {
             const data = new FormData();
             data.append('file', picture)
             data.append('upload_preset', 'NotesApp')
-            data.append('cloud_name', 'dlqtgcsk9')
-            fetch('https://api.cloudinary.com/v1_1/dlqtgcsk9/image/upload', {
+            data.append('cloud_name', process.env.CLOUD_NAME)
+            fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/image/upload`, {
                 method: "post",
                 body: data,
             }).then((res) => res.json()).then((data) => {
@@ -44,7 +46,7 @@ const ProfileScreen = () => {
                 setPicUpload(false)
             })
                 .catch((err) => {
-                    return setPicMessage('Some Unknown Error Occured!')
+                    return setPicMessage(ERROR_OCCURED)
 
                 });
 
@@ -61,7 +63,7 @@ const ProfileScreen = () => {
     const submitForm = async (e) => {
         e.preventDefault();
         if (password != confirmPassword) {
-            setMessage('Passwords Do not Match');
+            setMessage(PASSWORD_VERIFICATION_FAILED);
         }
         else {
             try {
@@ -77,7 +79,7 @@ const ProfileScreen = () => {
                 }, config)
                 localStorage.setItem('userInfo', JSON.stringify(data))
                 setSucess(true)
-                setMessage('Profile Updated Successfully')
+                setMessage(PROFILE_UPDATED)
                 setLoading(false);
 
             } catch (err) {
@@ -141,12 +143,8 @@ const ProfileScreen = () => {
                         </Button>
                     </Form>
                 </Col>
-                <Col style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center"
-                }}>
-                    <img src={pic} alt={name} className='profilepic' />
+                <Col > 
+                    <img src={pic} alt={name} className='profilePic'  />
                 </Col>
             </Row>
         </div>

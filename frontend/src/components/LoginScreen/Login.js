@@ -25,7 +25,6 @@ const Login = () => {
                 }
             }
             setLoading(true)
-            // http://localhost:9000
             const { data } = await axios.post('/api/users/login', { email, password }, config)
             localStorage.setItem('userInfo', JSON.stringify(data))
             history("/mynotes");
@@ -33,9 +32,7 @@ const Login = () => {
             setLoading(false)
 
         } catch (err) {
-            console.log(err)
             setError(err.response.data.message)
-            console.log(err.response.data.message)
             setLoading(false)
         }
 

@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import MainScreen from '../MainScreen';
 import { Form, Button, Row, Col } from 'react-bootstrap';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AlertMessage from '../Alerts/AlertMessage';
 import Spinner from '../Loading'
 import axios from 'axios';
+import { ERROR_OCCURED, PASSWORD_VERIFICATION_FAILED } from '../constants/noteConstants';
 
 
 const Register = () => {
@@ -27,8 +28,8 @@ const Register = () => {
   const registerUser = async (e) => {
     e.preventDefault();
 
-   if (password != confirmPassword) {
-      setMessage('Passwords Do not Match');
+    if (password != confirmPassword) {
+      setMessage(PASSWORD_VERIFICATION_FAILED);
     }
     else {
       setMessage(null);
@@ -71,8 +72,8 @@ const Register = () => {
       const data = new FormData();
       data.append('file', picture)
       data.append('upload_preset', 'NotesApp')
-      data.append('cloud_name', 'dlqtgcsk9')
-      fetch('https://api.cloudinary.com/v1_1/dlqtgcsk9/image/upload', {
+      data.append('cloud_name', process.env.CLOUD_NAME)
+      fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/image/upload`, {
         method: "post",
         body: data,
       }).then((res) => res.json()).then((data) => {
@@ -81,7 +82,7 @@ const Register = () => {
         setPicUpload(false)
       })
         .catch((err) => {
-      return setPicMessage('Some Unknown Error Occured!')
+          return setPicMessage(ERROR_OCCURED)
 
         });
 
@@ -133,7 +134,7 @@ const Register = () => {
             <Form.Control type="file" onChange={(e) => postDetails(e.target.files[0])} />
           </Form.Group>
 
-          <Button variant="primary mt-2" type="submit"  disabled={picUploading} >
+          <Button variant="primary mt-2" type="submit" disabled={picUploading} >
             Submit
           </Button>
 
