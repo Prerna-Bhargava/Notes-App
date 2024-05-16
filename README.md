@@ -14,4 +14,4 @@ A Complete web Application using MERN Stack where users can create and store the
 3. Protected Routes
 4. Markdown Syntax
 
-[See Live App](https://notify-mern-app.herokuapp.com/) 
+[See Live App](https://notify-app-09ui.onrender.com/) 
